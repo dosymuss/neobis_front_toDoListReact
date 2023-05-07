@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./styles/App.css"
+import MainForm from "./components/MainForm";
+import { useState } from "react";
+import PostList from "./components/PostList";
+
 
 function App() {
+const [lists, setLists] = useState([
+  {id:1,value:"gygygy",category:"bus"}
+])
+const createList = (newList)=>{
+setLists([...lists, newList])
+}
+const removeList = (list)=>{
+  setLists(lists.filter(l=> l.id !== list.id))
+}
+
+
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 className="header-title">What's up <input id="nameInp" placeholder="name"/></h1>
+      <MainForm create={createList}/>
+      <PostList remove={removeList} lists={lists}/>
     </div>
   );
 }
